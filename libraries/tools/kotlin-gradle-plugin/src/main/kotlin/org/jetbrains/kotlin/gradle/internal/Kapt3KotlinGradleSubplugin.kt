@@ -163,8 +163,7 @@ class Kapt3KotlinGradleSubplugin : KotlinGradleSubplugin<KotlinCompile> {
         val kaptGenerateStubsTask = context.createKaptGenerateStubsTask()
         val kaptTask = context.createKaptKotlinTask()
 
-        val preKaptTasks = (kotlinCompile.dependsOn + javaCompile.dependsOn).filter { it !== kotlinCompile }
-        kaptGenerateStubsTask.dependsOn(*preKaptTasks.toTypedArray())
+        kaptGenerateStubsTask.dependsOn(*kotlinCompile.dependsOn.toTypedArray())
         kaptTask.dependsOn(kaptGenerateStubsTask)
         kotlinCompile.dependsOn(kaptTask)
 
